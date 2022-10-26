@@ -1,5 +1,5 @@
 # FinTech, AgriTech , InsureTech 
-## Banking SpringBoot APIs for Authentication (Register + Login + Logout)
+## SpringBoot Bankend APIs for Authentication (Register + Login + Logout)
 
  - Postman or Httpie online Testing of the end points 
  - 1...api/v1/login
