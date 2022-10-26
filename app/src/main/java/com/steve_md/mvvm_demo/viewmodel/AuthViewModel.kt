@@ -14,9 +14,7 @@ class AuthViewModel : ViewModel() {
     var authListener: AuthListener? = null
 
     // Login Activity Model
-    fun loginUser(
-        view: View
-    ) {
+    fun loginUser() {
 
         authListener?.onStarted()
 
