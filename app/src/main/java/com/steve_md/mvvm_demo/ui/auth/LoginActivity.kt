@@ -1,5 +1,6 @@
 package com.steve_md.mvvm_demo.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -24,6 +25,11 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         binding.viewmodel = viewModel
 
         viewModel.authListener = this
+
+        binding.dontHaveAccText.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, SignUpActivity::class.java))
+            finish()
+        }
 
     }
 
