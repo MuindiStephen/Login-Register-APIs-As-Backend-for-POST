@@ -3,6 +3,8 @@ package com.steve_md.mvvm_demo.utils.viewUtils
 import android.R
 import android.app.Activity
 import android.content.Context
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 
@@ -20,4 +22,12 @@ fun Context.toast(text: String) {
 fun Activity.showSnackbar(text: String){
     Snackbar.make(findViewById(R.id.content), text, Snackbar.LENGTH_SHORT)
         .show()
+}
+
+fun ProgressBar.show(){
+    visibility = View.VISIBLE
+}
+
+fun ProgressBar.hide() {
+    visibility = View.GONE
 }

@@ -2,7 +2,10 @@ package com.steve_md.mvvm_demo.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -11,6 +14,8 @@ import com.steve_md.mvvm_demo.R
 import com.steve_md.mvvm_demo.databinding.ActivityLoginBinding
 import com.steve_md.mvvm_demo.utils.viewUtils.toast
 import com.steve_md.mvvm_demo.utils.authUtils.AuthListener
+import com.steve_md.mvvm_demo.utils.viewUtils.hide
+import com.steve_md.mvvm_demo.utils.viewUtils.show
 import com.steve_md.mvvm_demo.viewmodel.AuthViewModel
 
 
@@ -30,6 +35,8 @@ class LoginActivity : AppCompatActivity(), AuthListener {
 
         viewModel.authListener = this
 
+
+
         binding.dontHaveAccText.setOnClickListener {
             startActivity(Intent(this@LoginActivity, SignUpActivity::class.java))
             finish()
@@ -38,11 +45,15 @@ class LoginActivity : AppCompatActivity(), AuthListener {
     }
 
     override fun onStarted() {
-        toast("Login Started")
+        val progressBar:ProgressBar = findViewById(R.id.progressBar)
+        progressBar.show()
     }
 
     override fun onSuccess(loginResponse: LiveData<String>) {
-       loginResponse.observe(this, Observer {
+
+        val progressBar:ProgressBar = findViewById(R.id.progressBar)
+        progressBar.hide()
+        loginResponse.observe(this, Observer {
            toast(it)
        })
     }
