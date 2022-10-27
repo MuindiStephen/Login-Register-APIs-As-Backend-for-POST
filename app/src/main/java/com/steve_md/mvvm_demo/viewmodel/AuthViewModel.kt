@@ -1,7 +1,7 @@
 package com.steve_md.mvvm_demo.viewmodel
 
-import android.view.View
 import androidx.lifecycle.ViewModel
+import com.steve_md.mvvm_demo.data.repositories.UserRepository
 import com.steve_md.mvvm_demo.utils.authUtils.AuthListener
 import com.steve_md.mvvm_demo.utils.constants.Constants.MIN_PASSWORD_LENGTH
 
@@ -20,13 +20,18 @@ class AuthViewModel : ViewModel() {
 
         if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
             authListener?.onFailure("Empty Strings")
+
+            return
         }
         else if (password!!.length < MIN_PASSWORD_LENGTH) {
             authListener?.onFailure("Password is too short")
+            return
         }
-        else {
-            authListener?.onSuccess()
-        }
+
+        val loginResponse = UserRepository().userLogin(email!!,password!!)
+        authListener?.onSuccess(loginResponse)
+
+
     }
 
 
