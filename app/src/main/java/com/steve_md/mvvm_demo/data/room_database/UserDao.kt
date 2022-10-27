@@ -13,6 +13,6 @@ interface UserDao {
     @Insert(onConflict = REPLACE)
    fun upsert(user:User) : Long    // insert and update operations
 
-   @Query("SELECT * FROM user_table WHERE uid = $CURRENT_USER_ID")
+   @Query("SELECT * FROM user_table")
    fun getUser() : LiveData<User>
 }
