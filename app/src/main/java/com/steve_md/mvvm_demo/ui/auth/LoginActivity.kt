@@ -51,9 +51,11 @@ class LoginActivity : AppCompatActivity(), AuthListener {
 
     override fun onSuccess(loginResponse: LiveData<String>) {
         val progressBar:ProgressBar = findViewById(R.id.progressBar)
-        progressBar.hide()
         loginResponse.observe(this, Observer {
+            progressBar.hide()
            toast(it)
+            startActivity(Intent(this@LoginActivity, SignUpActivity::class.java))
+            finish()
        })
     }
 
