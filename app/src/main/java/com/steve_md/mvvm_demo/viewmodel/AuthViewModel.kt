@@ -1,16 +1,17 @@
 package com.steve_md.mvvm_demo.viewmodel
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
-import com.steve_md.mvvm_demo.data.network.responses.AuthResponse
 import com.steve_md.mvvm_demo.data.repositories.UserRepository
 import com.steve_md.mvvm_demo.data.room_database.User
 import com.steve_md.mvvm_demo.utils.ApiException
 import com.steve_md.mvvm_demo.utils.Coroutines
 import com.steve_md.mvvm_demo.utils.authUtils.AuthListener
 import com.steve_md.mvvm_demo.utils.constants.Constants.MIN_PASSWORD_LENGTH
-import org.json.JSONException
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel (
+        private val repository: UserRepository
+        ) : ViewModel() {
 
     // Need to get Email and Password from the UI into our ViewModel
     var email:String? = null
@@ -19,6 +20,7 @@ class AuthViewModel : ViewModel() {
     var authListener: AuthListener? = null
 
     // Login Activity Model
+    @SuppressLint("SuspiciousIndentation")
     fun loginUser() {
 
         authListener?.onStarted()
@@ -39,8 +41,11 @@ class AuthViewModel : ViewModel() {
         Coroutines.main {
 
             try {
-                val authResponse = UserRepository(((AuthResponse(null, null, null, null))))
-                  authListener?.onSuccess(User(null,null,null))
+                val authResponse = repository.userLogin(email!!,password!!)
+
+                authResponse.let {
+                    authListener?.onSuccess(User(null,null,null))
+                }
 
             } catch (e: ApiException) {
                 authListener?.onFailure(e.message)

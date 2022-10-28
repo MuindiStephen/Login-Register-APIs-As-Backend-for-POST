@@ -1,6 +1,5 @@
 package com.steve_md.mvvm_demo.utils.authUtils
 
-import com.steve_md.mvvm_demo.data.network.responses.AuthResponse
 import com.steve_md.mvvm_demo.data.room_database.User
 
 interface AuthListener {

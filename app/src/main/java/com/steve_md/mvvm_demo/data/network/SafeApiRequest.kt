@@ -8,7 +8,7 @@ import retrofit2.Response
 
 
 
-// Handle API Exceptions
+// Making Safe Api request while Handling API Exceptions
 abstract class SafeApiRequest {
 
     suspend fun <T : Any> apiRequest(call: suspend () -> Response<AuthResponse>): String {

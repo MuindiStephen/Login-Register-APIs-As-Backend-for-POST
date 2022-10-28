@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.steve_md.mvvm_demo.ui.auth.LoginActivity
 
 
 @Database(exportSchema = false, version = 1, entities = [User::class])
-abstract class AppDatabase : RoomDatabase() {
+abstract class AppDatabase(loginActivity: LoginActivity) : RoomDatabase() {
     abstract fun userDao() : UserDao
 
     companion object {

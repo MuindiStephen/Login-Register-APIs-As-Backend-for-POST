@@ -3,12 +3,14 @@ package com.steve_md.mvvm_demo.data.repositories
 import com.steve_md.mvvm_demo.data.network.LoginUser
 import com.steve_md.mvvm_demo.data.network.SafeApiRequest
 import com.steve_md.mvvm_demo.data.network.responses.AuthResponse
+import com.steve_md.mvvm_demo.data.room_database.User
 
 
 // Interact with the Backend API
 
+@Suppress("UNREACHABLE_CODE")
 class UserRepository(
-    private val myApi: AuthResponse
+    private val myApi: LoginUser
 )
     : SafeApiRequest() {
    suspend fun userLogin(email: String , password: String): String {
@@ -37,7 +39,11 @@ class UserRepository(
        // return loginResponse
 
 
-       return apiRequest<AuthResponse> { LoginUser.api.userLoginService(email, password) }
+       return apiRequest<AuthResponse> { myApi.api.userLoginService(email, password) }
+
+
+       // Saving the user in the database
+       suspend fun saveUser(user: User) = appDatabase.userDao().upsert(user)
 
    }
 }
