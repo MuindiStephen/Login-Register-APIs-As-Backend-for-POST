@@ -1,9 +1,14 @@
 package com.steve_md.mvvm_demo.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.steve_md.mvvm_demo.data.network.responses.AuthResponse
 import com.steve_md.mvvm_demo.data.repositories.UserRepository
+import com.steve_md.mvvm_demo.data.room_database.User
+import com.steve_md.mvvm_demo.utils.ApiException
+import com.steve_md.mvvm_demo.utils.Coroutines
 import com.steve_md.mvvm_demo.utils.authUtils.AuthListener
 import com.steve_md.mvvm_demo.utils.constants.Constants.MIN_PASSWORD_LENGTH
+import org.json.JSONException
 
 class AuthViewModel : ViewModel() {
 
@@ -28,10 +33,19 @@ class AuthViewModel : ViewModel() {
             return
         }
 
-        val loginResponse = UserRepository().userLogin(email!!,password!!)
-        authListener?.onSuccess(loginResponse)
+        // val loginResponse = UserRepository().userLogin(email!!,password!!)
+        //authListener?.onSuccess(loginResponse)
 
+        Coroutines.main {
 
+            try {
+                val authResponse = UserRepository(((AuthResponse(null, null, null, null))))
+                  authListener?.onSuccess(User(null,null,null))
+
+            } catch (e: ApiException) {
+                authListener?.onFailure(e.message)
+            }
+        }
     }
 
 
