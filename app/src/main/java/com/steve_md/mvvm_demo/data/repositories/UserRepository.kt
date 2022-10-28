@@ -3,6 +3,7 @@ package com.steve_md.mvvm_demo.data.repositories
 import com.steve_md.mvvm_demo.data.network.LoginUser
 import com.steve_md.mvvm_demo.data.network.SafeApiRequest
 import com.steve_md.mvvm_demo.data.network.responses.AuthResponse
+import com.steve_md.mvvm_demo.data.room_database.AppDatabase
 import com.steve_md.mvvm_demo.data.room_database.User
 
 
@@ -10,7 +11,8 @@ import com.steve_md.mvvm_demo.data.room_database.User
 
 @Suppress("UNREACHABLE_CODE")
 class UserRepository(
-    private val myApi: LoginUser
+    private val myApi: LoginUser,
+    private val appDatabase: AppDatabase
 )
     : SafeApiRequest() {
    suspend fun userLogin(email: String , password: String): String {
@@ -43,7 +45,7 @@ class UserRepository(
 
 
        // Saving the user in the database
-       suspend fun saveUser(user: User) = appDatabase.userDao().upsert(user)
+      suspend fun saveUser(user: User) = appDatabase.userDao().upsert(user)
 
    }
 }

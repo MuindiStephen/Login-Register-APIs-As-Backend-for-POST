@@ -3,6 +3,7 @@ package com.steve_md.mvvm_demo.viewmodel
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import com.steve_md.mvvm_demo.data.repositories.UserRepository
+import com.steve_md.mvvm_demo.data.room_database.AppDatabase
 import com.steve_md.mvvm_demo.data.room_database.User
 import com.steve_md.mvvm_demo.utils.ApiException
 import com.steve_md.mvvm_demo.utils.Coroutines
@@ -10,7 +11,7 @@ import com.steve_md.mvvm_demo.utils.authUtils.AuthListener
 import com.steve_md.mvvm_demo.utils.constants.Constants.MIN_PASSWORD_LENGTH
 
 class AuthViewModel (
-        private val repository: UserRepository
+        private val repository: UserRepository,
         ) : ViewModel() {
 
     // Need to get Email and Password from the UI into our ViewModel
@@ -45,6 +46,8 @@ class AuthViewModel (
 
                 authResponse.let {
                     authListener?.onSuccess(User(null,null,null))
+                    // repository.saveUser(user)
+                    return@main
                 }
 
             } catch (e: ApiException) {
